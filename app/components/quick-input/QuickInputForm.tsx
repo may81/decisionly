@@ -318,9 +318,12 @@ function SummaryRow({
 
 export default function QuickInputForm() {
   const [values, setValues] =
-    useState<FormValues>(
-      EMPTY_VALUES
-    );
+  useState<FormValues>(
+    EMPTY_VALUES
+  );
+
+const [inputDate, setInputDate] =
+  useState("");
 
   const [saving, setSaving] =
     useState(false);
@@ -348,6 +351,7 @@ export default function QuickInputForm() {
 
     setError("");
     setSuccess("");
+    
   }
 
   /*
@@ -524,6 +528,13 @@ export default function QuickInputForm() {
 
     setError("");
     setSuccess("");
+    if (!inputDate) {
+  setError(
+    "Please select the financial data date before saving."
+  );
+
+  return;
+}
 
     /*
      * Do not allow completely empty submissions.
@@ -565,6 +576,8 @@ export default function QuickInputForm() {
           },
 
           body: JSON.stringify({
+            inputDate,
+
             revenue:
               values.revenue,
 
@@ -690,10 +703,11 @@ export default function QuickInputForm() {
    */
 
   function clearForm() {
-    setValues(EMPTY_VALUES);
-    setError("");
-    setSuccess("");
-  }
+  setValues(EMPTY_VALUES);
+  setInputDate("");
+  setError("");
+  setSuccess("");
+}
 
   /*
    * ==========================================================
@@ -750,15 +764,32 @@ export default function QuickInputForm() {
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              The submission date, company, user,
-              and Quick Input reference are
-              generated automatically when you save.
+              Select the financial date for this submission.
+The company, user, and Quick Input reference
+are generated automatically when you save.
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-medium text-slate-500">
-            Date: automatic
-          </div>
+          <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5">
+  <label
+    htmlFor="input-date"
+    className="text-xs font-medium text-slate-500"
+  >
+    Financial Date
+  </label>
+
+  <input
+    id="input-date"
+    type="date"
+    value={inputDate}
+    onChange={(event) => {
+      setInputDate(event.target.value);
+      setError("");
+      setSuccess("");
+    }}
+    className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
+  />
+</div>
         </div>
       </section>
 

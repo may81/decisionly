@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/server";
  */
 
 type QuickInputPayload = {
+  inputDate?: unknown;
   revenue?: unknown;
   costOfSales?: unknown;
   operatingExpenses?: unknown;
@@ -782,17 +783,38 @@ export async function POST(
      * --------------------------------------------------------
      */
 
-    let body: QuickInputPayload;
+   let body: QuickInputPayload;
 
-    try {
-      body =
-        (await request.json()) as QuickInputPayload;
-    } catch {
-      return jsonError(
-        "Invalid JSON request body.",
-        400
-      );
-    }
+try {
+  body =
+    (await request.json()) as QuickInputPayload;
+} catch {
+  return jsonError(
+    "Invalid request body.",
+    400
+  );
+}
+
+const inputDate =
+  typeof body.inputDate === "string"
+    ? body.inputDate.trim()
+    : "";
+
+if (!inputDate) {
+  return jsonError(
+    "Please select the financial data date before saving.",
+    400
+  );
+}
+
+if (
+  !/^\d{4}-\d{2}-\d{2}$/.test(inputDate)
+) {
+  return jsonError(
+    "Invalid financial data date.",
+    400
+  );
+}
 
     /*
      * --------------------------------------------------------
@@ -1009,14 +1031,15 @@ export async function POST(
      * --------------------------------------------------------
      */
 
+    
     const now =
-      new Date();
+  new Date();
 
-    const datePart =
-      now
-        .toISOString()
-        .slice(0, 10)
-        .replace(/-/g, "");
+const datePart =
+  inputDate.replace(
+    /-/g,
+    ""
+  );
 
     const randomPart =
       Math.random()
@@ -1050,9 +1073,7 @@ export async function POST(
             user.id,
 
           input_date:
-            now
-              .toISOString()
-              .slice(0, 10),
+  inputDate,
 
           revenue,
 
@@ -1279,5 +1300,4 @@ export async function POST(
       500
     );
   }
-}
-
+  }
