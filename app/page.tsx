@@ -33,7 +33,7 @@ const plans = [
       "Business insights",
     ],
     cta: "Start Pro",
-    href: "/register",
+    href: "/register?plan=pro",
     featured: true,
   },
   {
@@ -50,8 +50,8 @@ const plans = [
       "Advanced reporting",
       "Priority support",
     ],
-    cta: "Contact Us",
-    href: "#contact",
+    cta: "Start Business",
+    href: "/register?plan=business",
     featured: false,
   },
 ];

@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -69,6 +70,16 @@ const navigation = [
         name: "Reports",
         href: "/dashboard/report",
         icon: "▤",
+      },
+    ],
+  },
+  {
+    section: "ACCOUNT",
+    items: [
+      {
+        name: "Billing",
+        href: "/dashboard/billing",
+        icon: "$",
       },
     ],
   },
@@ -173,6 +184,7 @@ export default function Sidebar({
       {/* Bottom */}
 
       <div className="border-t border-indigo-900/70 p-3">
+
         {/* Settings */}
 
         <Link
@@ -230,3 +242,4 @@ export default function Sidebar({
     </aside>
   );
 }
+

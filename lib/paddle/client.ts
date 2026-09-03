@@ -11,11 +11,6 @@ if (!apiKey) {
   );
 }
 
-const environment =
-  process.env.PADDLE_ENV === "sandbox"
-    ? Environment.sandbox
-    : Environment.production;
-
 export const paddle = new Paddle(apiKey, {
-  environment,
+  environment: Environment.production,
 });

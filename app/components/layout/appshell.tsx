@@ -155,9 +155,7 @@ export default function AppShell({
         <Header
           userName={userName}
           initials={initials}
-          companyName={
-            company.name || "No Company"
-          }
+          companyName={company.name || "No Company"}
         />
 
         <main className="min-h-[calc(100vh-4rem)] p-6">
