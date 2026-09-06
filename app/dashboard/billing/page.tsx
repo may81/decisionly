@@ -33,10 +33,10 @@ type BillingResponse = {
 };
 
 const PRO_PRICE_ID =
-  "pri_01m0784wpq5xjxyjg1a8f1kk3m";
+  "pri_01m1a4ttkrddmrvz53g8m1xxdz";
 
 const BUSINESS_PRICE_ID =
-  "pri_01m078kjpwsq7pgxbxvsq362qm";
+  "pri_01m1a56fkxdf42tvxy1pyrkvhy";
 
 function formatDate(value?: string | null) {
   if (!value) return "—";

@@ -21,8 +21,8 @@ const PLAN_TO_PRICE: Record<
   UpgradePlan,
   string
 > = {
-  pro: "pri_01m0784wpq5xjxyjg1a8f1kk3m",
-  business: "pri_01m078kjpwsq7pgxbxvsq362qm",
+  pro: "pri_01m1a4ttkrddmrvz53g8m1xxdz",
+  business: "pri_01m1a56fkxdf42tvxy1pyrkvhy",
 };
 
 export default function LoginPage() {

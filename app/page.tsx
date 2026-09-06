@@ -509,20 +509,42 @@ export default function Home() {
             © {new Date().getFullYear()} Decisionly. All rights reserved.
           </div>
 
-          <div className="flex gap-6">
-            <Link
-              href="/login"
-              className="hover:text-white"
-            >
-              Login
-            </Link>
+          <div className="flex flex-wrap gap-6">
+  <Link
+    href="/privacy"
+    className="hover:text-white"
+  >
+    Privacy Policy
+  </Link>
 
-            <Link
-              href="/register"
-              className="hover:text-white"
-            >
-              Register
-            </Link>
+  <Link
+    href="/terms"
+    className="hover:text-white"
+  >
+    Terms of Service
+  </Link>
+
+  <Link
+    href="/refund"
+    className="hover:text-white"
+  >
+    Refund Policy
+  </Link>
+
+  <Link
+    href="/login"
+    className="hover:text-white"
+  >
+    Login
+  </Link>
+
+  <Link
+    href="/register"
+    className="hover:text-white"
+  >
+    Register
+  </Link>
+
 
             <a
               href="#pricing"

@@ -24,8 +24,8 @@ const PRICE_TO_PLAN: Record<
   string,
   "pro" | "business"
 > = {
-  "pri_01m0784wpq5xjxyjg1a8f1kk3m": "pro",
-  "pri_01m078kjpwsq7pgxbxvsq362qm": "business",
+  "pri_01m1a4ttkrddmrvz53g8m1xxdz": "pro",
+  "pri_01m1a56fkxdf42tvxy1pyrkvhy": "business",
 };
 
 const SUPPORTED_EVENTS = new Set([
