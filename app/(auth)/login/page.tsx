@@ -152,14 +152,53 @@ export default function LoginPage() {
         );
       }
 
-     const environment = "production";
+    const environment = "production";
 
-      const paddle: Paddle | undefined =
-        await initializePaddle({
-          token: clientToken,
-          environment,
-        });
+/*
+ * Get the existing Paddle Customer ID, if this
+ * Decisionly company already has one.
+ *
+ * New customers may not have a Paddle Customer ID yet.
+ */
+let paddleCustomerId: string | null = null;
 
+try {
+  const billingResponse = await fetch("/api/billing", {
+    method: "GET",
+    cache: "no-store",
+    credentials: "include",
+  });
+
+  if (billingResponse.ok) {
+    const billing = await billingResponse.json();
+
+    const customerId =
+      billing?.subscription?.paddle_customer_id ?? null;
+
+    if (
+      customerId &&
+      customerId.startsWith("ctm_")
+    ) {
+      paddleCustomerId = customerId;
+    }
+  }
+} catch (billingError) {
+  console.warn(
+    "[Paddle Checkout] Unable to load Paddle customer:",
+    billingError
+  );
+}
+
+const paddle: Paddle | undefined =
+  await initializePaddle({
+    token: clientToken,
+    environment,
+    pwCustomer: paddleCustomerId
+      ? {
+          id: paddleCustomerId,
+        }
+      : {},
+  });
       if (!paddle) {
         throw new Error(
           "Paddle could not be initialized."
