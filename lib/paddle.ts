@@ -17,11 +17,10 @@ export const PADDLE_PRICES: Record<UpgradePlan, string> = {
 export function getPlanFromPriceId(
   priceId: string
 ): UpgradePlan | null {
-  if (priceId === "pri_01m07813mwxnkg7jde1anv70zp") {
-    return "pro";
-  }
-
-  if (priceId === "pri_01m1a4ttkrddmrvz53g8m1xxdz") {
+  if (
+    priceId === "pri_01m07813mwxnkg7jde1anv70zp" ||
+    priceId === "pri_01m1a4ttkrddmrvz53g8m1xxdz"
+  ) {
     return "pro";
   }
 
