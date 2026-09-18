@@ -1,13 +1,10 @@
-
 export type UpgradePlan = "pro" | "business";
 
 const isSandbox =
   process.env.NEXT_PUBLIC_PADDLE_ENV === "sandbox";
 
 export const PADDLE_PRICES: Record<UpgradePlan, string> = {
-  pro: isSandbox
-    ? "pri_01m07813mwxnkg7jde1anv70zp"
-    : "pri_01m07813mwxnkg7jde1anv70zp",
+  pro: "pri_01m07813mwxnkg7jde1anv70zp",
 
   business: isSandbox
     ? "pri_01m078kjpwsq7pgxbxvsq362qm"
@@ -33,4 +30,3 @@ export function getPlanFromPriceId(
 
   return null;
 }
-
