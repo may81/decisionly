@@ -1,7 +1,9 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { Paddle } from "@paddle/paddle-node-sdk";
-
+import {
+  getPlanFromPriceId,
+} from "@/lib/paddle";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -20,13 +22,7 @@ if (!paddleWebhookSecret) {
 const paddle = new Paddle(paddleApiKey);
 const webhookSecret = paddleWebhookSecret;
 
-const PRICE_TO_PLAN: Record<
-  string,
-  "pro" | "business"
-> = {
-  "pri_01m1a4ttkrddmrvz53g8m1xxdz": "pro",
-  "pri_01m1a56fkxdf42tvxy1pyrkvhy": "business",
-};
+
 
 const SUPPORTED_EVENTS = new Set([
   "subscription.created",
@@ -182,9 +178,19 @@ export async function POST(request: NextRequest) {
     const productId =
       firstItem?.price?.product_id ?? null;
 
-    const plan = priceId
-      ? PRICE_TO_PLAN[priceId]
-      : undefined;
+    const mappedPlan = priceId
+  ? getPlanFromPriceId(priceId)
+  : null;
+
+console.log("[Paddle Webhook] Price mapping:", {
+  priceId,
+  mappedPlan,
+});
+
+const plan =
+  priceId === "pri_01m07813mwxnkg7jde1anv70zp"
+    ? "pro"
+    : mappedPlan;
 
     if (!plan) {
       console.error(
@@ -426,7 +432,7 @@ export async function POST(request: NextRequest) {
       plan,
       status,
     });
-  } catch (error) {
+    } catch (error) {
     console.error(
       "[Paddle Webhook] Error:",
       error
@@ -434,8 +440,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        error:
-          "Invalid or failed Paddle webhook.",
+        error: "Invalid or failed Paddle webhook.",
       },
       { status: 400 }
     );
