@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
 
@@ -109,10 +110,10 @@ export async function GET() {
      */
 
     const {
-      data: subscription,
-      error: subscriptionError,
-    } = await supabase
-      .from("subscriptions")
+  data: subscription,
+  error: subscriptionError,
+} = await supabaseAdmin
+  .from("subscriptions")
       .select(`
         id,
         company_id,
